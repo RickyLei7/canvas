@@ -53,20 +53,37 @@ function listenToUser(canvas) {
     var using = false
     var lastPoint = {x: undefined, y: undefined}
 
+    // Characteristics Detection
     if (document.body.ontouchstart !== undefined) {
         // Touch Device
-        console.log('touch OK')
-        console.log(document.body.ontouchstart)
 
-
-        canvas.ontouchstart = function () {
-            console.log('start touch')
+        canvas.ontouchstart = function (aaa) {
+            var x = aaa.touches[0].clientX
+            var y = aaa.touches[0].clientY
+            console.log(x,y)
+            using = true
+            if (eraserEnabled) {
+                context.clearRect(x - 5, y - 5, 10, 10)
+            } else {
+                lastPoint = {"x": x, "y": y}
+            }
         }
-        canvas.ontouchmove = function () {
-            console.log('start move')
+        canvas.ontouchmove = function (aaa) {
+            var x = aaa.touches[0].clientX
+            var y = aaa.touches[0].clientY
+            if (!using) {
+                return
+            }
+            if (eraserEnabled) {
+                context.clearRect(x - 5, y - 5, 10, 10)
+            } else {
+                var newPoint = {"x": x, "y": y}
+                drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+                lastPoint = newPoint   // ***
+            }
         }
-        canvas.ontouchend = function () {
-            console.log('end')
+        canvas.ontouchend = function (aaa) {
+            using = false
         }
     } else {
         canvas.onmousedown = function (aaa) {
