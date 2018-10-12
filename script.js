@@ -5,15 +5,40 @@ autoSetCanvasSize(yyy)
 listenToUser(yyy)
 
 var eraserEnabled = false
-eraser.onclick = function () {
-    eraserEnabled = true
-    actions.className = 'actions x'
-}
-brush.onclick = function () {
+
+pen.onclick = function () {
     eraserEnabled = false
-    actions.className = 'actions'
+    pen.classList.add('active')
+    eraser.classList.remove('active')
+}
+eraser.onclick =function () {
+    eraserEnabled = true
+    eraser.classList.add('active')
+    pen.classList.remove('active')
 }
 
+red.onclick = function () {
+    context.fillStyle = 'red'
+    context.strokeStyle = 'red'
+    red.classList.add('active')
+    yellow.classList.remove('active')
+    blue.classList.remove('active')
+
+}
+yellow.onclick = function () {
+    context.fillStyle = 'yellow'
+    context.strokeStyle = 'yellow'
+    yellow.classList.add('active')
+    red.classList.remove('active')
+    blue.classList.remove('active')
+}
+blue.onclick = function () {
+    context.fillStyle = 'blue'
+    context.strokeStyle = 'blue'
+    blue.classList.add('active')
+    red.classList.remove('active')
+    yellow.classList.remove('active')
+}
 
 /************ */
 function autoSetCanvasSize(canvas) {
@@ -41,7 +66,7 @@ function drawCricle(x, y, radius) {
 
 function drawLine(x1, y1, x2, y2) { // x1y1 is begin, x2 y2 is end.
     context.beginPath()
-    context.strokeStyle = 'black'
+    // context.strokeStyle = 'black'
     context.moveTo(x1, y1) // begin
     context.lineWidth = 5
     context.lineTo(x2, y2) // end  , 

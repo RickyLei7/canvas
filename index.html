@@ -15,13 +15,23 @@
 <canvas id="xxx" width="300px" height="300px"></canvas>
 
 <div id="actions" class="actions x">
-    <button id="eraser">Eraser</button>
-    <button id="brush">Brush</button>
+    <svg id="pen" class="active icon">
+        <use xlink:href="#icon-pen"></use>
+    </svg>
+
+    <svg  id="eraser" class="icon">
+        <use xlink:href="#icon-eraser"></use>
+    </svg>
+    <ol class="colors">
+        <li id="red" class="red active"></li>
+        <li id="yellow" class="yellow"></li>
+        <li id="blue" class="blue"></li>
+    </ol>
 </div>
 
 
 <script type="text/javascript" src="./script.js"></script>
-
+<script src="//at.alicdn.com/t/font_869693_ssix1wz0znj.js"></script>
 
 </body>
 
