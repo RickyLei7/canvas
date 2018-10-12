@@ -1,5 +1,6 @@
 var yyy = document.getElementById('xxx')
 var context = yyy.getContext('2d')
+var lineWidth = 5
 
 autoSetCanvasSize(yyy)
 listenToUser(yyy)
@@ -16,13 +17,37 @@ eraser.onclick =function () {
     eraser.classList.add('active')
     pen.classList.remove('active')
 }
+clear.onclick = function(){
+    context.clearRect(0,0, yyy.width, yyy.height)
+}
 
+download.onclick = function(){
+    var url = yyy.toDataURL('image/png')
+    var a = document.createElement('a')
+    document.body.appendChild(a)
+    a.href = url
+    a.download = 'My Drawing'
+    a.target = '_blank'
+    a.click()
+}
+
+black.onclick = function () {
+    context.fillStyle = 'black'
+    context.strokeStyle = 'black'
+    black.classList.add('active')
+    red.classList.remove('active')
+    yellow.classList.remove('active')
+    blue.classList.remove('active')
+
+}
 red.onclick = function () {
     context.fillStyle = 'red'
     context.strokeStyle = 'red'
     red.classList.add('active')
     yellow.classList.remove('active')
     blue.classList.remove('active')
+    black.classList.remove('active')
+
 
 }
 yellow.onclick = function () {
@@ -31,6 +56,8 @@ yellow.onclick = function () {
     yellow.classList.add('active')
     red.classList.remove('active')
     blue.classList.remove('active')
+    black.classList.remove('active')
+
 }
 blue.onclick = function () {
     context.fillStyle = 'blue'
@@ -38,6 +65,14 @@ blue.onclick = function () {
     blue.classList.add('active')
     red.classList.remove('active')
     yellow.classList.remove('active')
+    black.classList.remove('active')
+}
+
+thin.onclick = function () {
+    lineWidth = 5
+}
+thick.onclick = function () {
+    lineWidth = 10
 }
 
 /************ */
@@ -68,7 +103,7 @@ function drawLine(x1, y1, x2, y2) { // x1y1 is begin, x2 y2 is end.
     context.beginPath()
     // context.strokeStyle = 'black'
     context.moveTo(x1, y1) // begin
-    context.lineWidth = 5
+    context.lineWidth = lineWidth
     context.lineTo(x2, y2) // end  , 
     context.stroke()
     context.closePath()
